@@ -53,6 +53,17 @@ public class RestController {
         return new JSONObject(new Tweet("test new tweet")).toString();
     }
     
+    @GET
+    @Path("/getJson/{body}")
+    /**
+     * Méthode de test pour un appel de service REST avec RESTeasy
+     * Renvoi un objet Java parsé en JSON => /!\ Les getters sont requis pour parser les propriétés
+     * Accessible via : http://localhost:8080/TwitterDashboard/rest/controller/getJSon/{body}
+     */
+    public String objJsonWithBody(@PathParam("body") String body) {
+        return new JSONObject(new Tweet(body)).toString();
+    }
+    
     /*@GET
     @Path("/get")
     @Produces("application/json")
