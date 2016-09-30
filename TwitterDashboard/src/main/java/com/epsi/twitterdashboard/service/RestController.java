@@ -1,6 +1,9 @@
 package com.epsi.twitterdashboard.service;
 
 import com.epsi.twitterdashboard.model.Tweet;
+import com.epsi.twitterdashboard.twitter4j.TwitterApi;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -9,6 +12,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import org.json.JSONObject;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
 
 /**
  *
@@ -62,6 +67,16 @@ public class RestController {
      */
     public String objJsonWithBody(@PathParam("body") String body) {
         return new JSONObject(new Tweet(body)).toString();
+    }
+    
+    @GET
+    @Path("/timeline")
+    /**
+     * Renvoi la timeline du compte configuré dans TwitterApi
+     */
+    public String getTimeline() throws TwitterException {
+        Twitter twitter = TwitterApi.Authenticate();
+        return new JSONObject(TwitterApi.getTimeline(twitter)).toString();
     }
     
     /*@GET
